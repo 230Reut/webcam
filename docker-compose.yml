@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  postgres:
+    image: docker.app.biss.idf/postgres:sqhp1
+    environment:
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=postgres123456
+      - POSTGRES_DB=SQHolmesPlace
+    restart: always
+    ports:
+      - 5432:5432
+
+  pgadmin:
+    image: docker.app.biss.idf/pgadmin4:1
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=biss@biss.idf
+      - PGADMIN_DEFAULT_PASSWORD=biss123456
+      - PGADMIN_LISTEN_PORT=9876
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - 9876:9876
+
+volumes:
+  pgadmin:

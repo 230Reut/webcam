@@ -6,6 +6,7 @@ from datetime import datetime
 from login import *
 
 
+events_log = []
 
 # Initialize the webcam
 video_capture = cv2.VideoCapture(0)
@@ -47,9 +48,41 @@ def take_shot():
 
     return send_file(img_io, mimetype='image/jpeg', as_attachment=True, download_name=file_name)
 
+
+# Notify
+@app.route('/record_who_went', methods=['POST'])
+def record_who_went():
+    
+    data = request.get_json()
+    
+    # Check for display name, time and gender
+    display_name = data.get('display_name', 'Unknown')
+
+    #Create log message
+    time_stamp = datetime.now().strftime("%H:%M:%S")
+    message = f'{display_name} {time_stamp}'
+    
+    # Log to today's logfile
+    file_name =  f'./logs/{datetime.now().strftime("%d-%m-%y")}.txt'
+    with open(file_name, "a", encoding='utf-8') as log_file:
+        log_file.write(message + '\n')
+
+    # Return all logs to frontend 
+    events_log.insert(0, message)
+    return jsonify({'message':message})
+
+
+# Get all notification
+@app.route('/get_events_log', methods=['GET'])
+def get_events_log():
+    # Display only last 10 logs
+    return jsonify({'events': events_log[:10]})
+
+
 def generate_frames():
     while True:
-        success, frame = video_capture.read()  # Read frame from the webcam
+        # Read frame from the webcam
+        success, frame = video_capture.read()  
         if not success:
             break
         else:

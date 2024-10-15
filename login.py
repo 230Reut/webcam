@@ -4,32 +4,13 @@ from flask_cors import CORS
 import cv2
 import io
 from datetime import datetime
+from data import *
 
 app = Flask(__name__)
 CORS(app)
-app.config['SECRET_KEY'] = 'supersecretkey'  # Secret key for session management
 
-# Set the hardcoded password for access
-ACCESS_PASSWORD = 'Aa123123123'
-USERS = {"reutp" : "המפקדת רעות",
-         "yaarat": "המפקדת יערה", 
-         "shirt" : "המפקדת שיר", 
-         "shirig": "המפקדת שירי",
-         "yoady" : "המפקד יועד",
-         "ohads": "המפקד אוהד ש",
-         "oris": "המפקד אורי",
-         "galy": "המפקד גל",
-         "yoavz":"המפקד יואב ז",
-         "amird": "המפקד אמיר",
-         "ohadk": "המפקד אוהד ק",
-         "nirs": "המפקד ניר",
-         "omerf": "המפקד עומר",
-         "yoavb": "המפקד יואב ב",
-         "liorsh": 'הרמ"ג ליאור',
-         "liors": 'המק"ס ליאור',
-         "guym" : 'הרמ"ג גיא',
-         "eliranb": 'הרמ"ג אלירן'} 
-
+ # Secret key for session management
+app.config['SECRET_KEY'] = 'supersecretkey' 
 # Route for login page
 @app.route('/login', methods=['GET', 'POST'])
 def login():

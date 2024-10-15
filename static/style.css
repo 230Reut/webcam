@@ -9,9 +9,9 @@
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f0b5e8;
+    justify-content: space-between;
     color: #333;
     line-height: 1.6;
-    padding: 20px;
     text-align: center;
 }
 
@@ -19,9 +19,10 @@ body {
 header {
     background: #333;
     color: #fff;
-    padding: 20px 0;
+    padding: 10px 0;
+    padding-right: 10px;
     margin-bottom: 20px;
-    text-align: center;
+    text-align: right;
 }
 
 header h1 {
@@ -32,18 +33,51 @@ header h1 {
 /* Main Stream Container */
 #stream-container {
     max-width: 960px;
+    height: fit-content;
     margin: 0 auto;
+    margin-bottom: 0;
     padding: 10px;
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex: 3;
 }
-
+#centered {
+    display: flex;
+    justify-content:center;
+    text-align: center;
+}
 #stream-container img {
     width: 100%;
     height: auto;
     border-radius: 10px;
     margin-bottom: 20px;
+}
+
+#events-log-container {
+    flex: 1;
+    padding: 20px;
+    max-width: 320px;
+    background-color: #f0b5e8;
+    border-left: 2px solid #ddd;
+
+}
+
+#events-log {
+
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+}
+
+#events-log li {
+padding: 10px;
+margin: 10px 0;
+background-color: #e0e0e0;
+border-radius: 5px;
+box-shadow: 02px 4px rgba(0, 0, 0, 0.1);
+
 }
 
 /* Button Styling */
@@ -127,7 +161,7 @@ footer p {
 
 /* Flash Messages */
 .flash {
-    color: red;
+    color:  rgb(206, 90, 90);
     font-size: 1.1em;
     margin-bottom: 20px;
 }
@@ -135,5 +169,6 @@ footer p {
     background: #4ba867;
 }
 #logout {
-    background: rgb(226, 68, 68);
+    background: rgb(206, 90, 90);
+    margin-top: 1em;
 }

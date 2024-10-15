@@ -2,7 +2,7 @@
 const display_name = document.body.dataset.displayName;
 
 is_female = display_name.includes("המפקדת");
-logout_msg = isFemale? "התנתקי":"התנתק";
+logout_msg = is_female ? "התנתקי" : "התנתק";
 
 function takeSnapShot() {
     window.location.href = "/take_shot"
@@ -10,16 +10,41 @@ function takeSnapShot() {
 
 function goToHanich(display_name) {
 
-    if (is_female){   
-        console.log(display_name + " יצאה לפעמון");
+    went_out_msg = ""
+    if (is_female) {
+        went_out_hebrew = display_name + " יצאה לפעמון ב"
     }
     else {
-        console.log(display_name + "יצא לפעמון");
+        went_out_hebrew = display_name + " יצא לפעמון ב"
     }
-
-    const timestamp = new Date().toLocaleTimeString();
-    const log_entry = document.createElement('li');
-    log_entry.textContent = timestamp + " " + display_name + " יצאה לפעמון";
-    const log_list = document.getElementById('log-list');
-    log_list.appendChild(log_entry);
+    fetch('record_who_went', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ display_name: went_out_hebrew })
+    })
+        .then(response => response.json())
+        .then(data => {
+            fethchEventsLog();
+        })
+        .catch(error => console.error('Error:', error));
 }
+
+function fethchEventsLog() {
+    fetch('get_events_log').
+        then(response => response.json())
+        .then(data => {
+            const events_log_div = document.getElementById('events-log');
+            events_log_div.innerHTML = '';
+            data.events.forEach(event => {
+                const event_item = document.createElement('p');
+                event_item.textContent = event;
+                events_log_div.appendChild(event_item);
+
+            });
+        }).catch(error => console.error("errorr", error));
+}
+
+setInterval(fethchEventsLog, 5000);
+window.onload = fethchEventsLog;

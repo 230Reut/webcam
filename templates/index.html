@@ -9,22 +9,24 @@
 </head>
 
 <body data-display-name="{{display_name}}">
-    <header>
-        <h1>Live Webcam Stream</h1>
-        <h2>{{display_name}} שלום</h2>
+    <header class="navbar">
+        <h3>{{display_name}} שלום</h3>
         <button id="logout" onclick="location.href='{{ url_for('logout')}}'">יציאה מהחשבון</button>
     </header>
-    <div id="stream-container">
-        <img src="{{ url_for('video_feed') }}" alt="Webcam Stream">
-        <br>
-        <button id="out" onclick="goToHanich('{{display_name}}')">יצאתי לחניך</button>
-        <button id="takeShot" onclick="takeSnapShot()">שמירת תמונה</button>
-      
-    </div>
-    <div id="logs-container">
-        <ul id="log-list"></ul>
+    <div id="centered">
+        <div id="stream-container">
+            <img src="{{ url_for('video_feed') }}" alt="Webcam Stream">
+            <br>
+            <button id="out" onclick="goToHanich('{{display_name}}')">יצאתי לחניך</button>
+            <button id="takeShot" onclick="takeSnapShot()">שמירת תמונה</button>
+
+        </div>
+        <div id="events-log-container">
+            <h2>צלצולים אחרונים</h2>
+            <ul id="events-log"></ul>
+        </div>
     </div>
 </body>
-<script src="{{ url_for('static', filename='js/logic.js') }}" ></script>
+<script src="{{ url_for('static', filename='js/logic.js') }}"></script>
 
 </html>
